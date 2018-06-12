@@ -1,0 +1,119 @@
+#include<reg51.h>
+
+sbit s1=P2^0;
+sbit s2=P2^1;
+sbit s3=P2^2;
+sbit s4=P2^3;
+sbit s5=P2^4;
+sbit s6=P2^5;
+sbit s7=P2^6;
+sbit pwm=P1^0;
+
+
+
+void main()
+{
+ 
+ s1=s2=s3=s4=s5=s6=s7=0;
+ while(1)				  //0% duty cycle
+ { pwm=0;
+   s1=s2=s3=s4=s5=s6=s7=0;
+  TMOD=0x01;
+  while(s1==1)
+  {
+   pwm=0;
+  }
+  while(s2==1)			// 10% duty cycle
+  {
+   TL0=0x9a;
+   TH0=0x19;
+   pwm=0;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+   TL0=0x65;
+   TH0=0xe6;
+   pwm=1;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+  }
+  while(s3==1)			//25% duty cycle
+  {
+   TL0=0xff;
+   TH0=0x3f;
+   pwm=0;
+   
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+   TL0=0x00;
+   TH0=0xc0;
+   pwm=1;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+  }
+  while(s4==1)			  //50% dutycycle
+  {
+   TL0=0xff;
+   TH0=0x7f;
+   pwm=0;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+   TL0=0xff;
+   TH0=0x7f;
+   pwm=1;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+  }
+  while(s5==1)			   //75% dutycycle
+  {
+   TL0=0x00;
+   TH0=0xc0;
+   pwm=0;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+   TL0=0xff;
+   TH0=0x3f;
+   pwm=1;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+  }
+  while(s6==1)			  //90% dutycycle
+  {
+   TL0=0x65;
+   TH0=0xe6;
+   pwm=0;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+   TL0=0x9a;
+   TH0=0x19;
+   pwm=1;
+   TR0=1;
+   while(TF0==0);
+   TR0=0;
+   TF0=0;
+  }
+  while(s7==1)				//100% dutycycle
+  {
+  pwm=1;
+  }
+
+}
+}
+   
